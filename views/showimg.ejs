@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>顯示圖片</title>
+    <style>
+        body {
+            background-color: black;
+            color: white; /* 將文字顏色設為白色 */
+            margin: 0;
+            padding: 20px;
+        }
+        .images-container {
+            display: flex;
+            flex-wrap: wrap; /* 讓圖片在容器寬度不夠時可以換行 */
+            justify-content: center; /* 圖片在容器中居中對齊 */
+            gap: 20px; /* 設置圖片之間的間隙 */
+        }
+        .image-container {
+            flex: 0 1 auto; /* 設置彈性盒子的放大、縮小行為和基礎寬度 */
+            text-align: center;
+        }
+        .image-name {
+            color: #ccc; /* 檔名的顏色 */
+            margin-top: 10px; /* 設置檔名與圖片之間的間隙 */
+        }
+        img {
+            width: 250px; /* 或者其他的寬度，根據需要調整 */
+            filter: brightness(50%);
+        }
+    </style>
+</head>
+<body>
+    <h1>圖片列表</h1>
+    <div class="images-container">
+        <% images.forEach(image => { %>
+            <div class="image-container">
+                <img src="<%= image.url %>" alt="Image">
+                <div class="image-name"><%= image.name %></div>
+            </div>
+        <% }); %>
+    </div>
+</body>
+</html>

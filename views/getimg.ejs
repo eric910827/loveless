@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="./bs/getimg.css">
+<script src="/socket.io/socket.io.js"></script>
+<script src="/bs/p5_background.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+<title>Latest Image</title>
+<script>
+        const socket = io();
+        socket.on('navigate-action', function(data) {
+            if (data.action === 'navigate-action' && data.url) {          
+                window.location.href = data.url; // 頁面跳轉
+
+            }
+        });
+        socket.on('Phone-controller',function(data){
+            var action=data.action;
+            switch (data.action) { 
+                case 'web_first':
+                    window.location.href = data.url; 
+                case 'web_last':
+                    window.location.href = data.url; 
+                case 'web_getimg':
+                    window.location.href = data.url; 
+                case 'web_shareimg':
+                    window.location.href = data.url; 
+                case 'web_wordcloud':
+                    window.location.href = data.url; 
+            }
+        })
+
+</script>
+</head>
+<body>
+    <input class="arrow" type="image" src="/loveless/FpImg/arrow.svg" style="opacity: 0.01;" alt="Submit"/>
+    <h1 class="text1">這是您的個人專屬圖像</h1>
+    <h1 class="text2">請至Line領取專屬分析表</h1>
+    <h2 class="text3">輸入圖片代碼:</h2>
+    <!-- <h1 class="imgg">Latest Uploaded Image</h1> -->
+    <% if (imageUrl && imageName) { %>
+        <!-- 如果 imageUrl 存在，则显示图片 -->
+        <img class="finalimg"src="<%= imageUrl %>" alt="Latest Image" style="width:350px; height: 500px;">
+        <h2 class="filename"><%= imageName %>.png</h2>
+    <% } else { %>
+        <!-- 如果 imageUrl 不存在，则显示提示信息 -->
+        <p>No image available.</p>
+    <% } %>
+    <script>
+        window.onload=function(){
+    var button = document.getElementsByClassName('arrow')[0]; // 确保这里是您第二个箭头的正确类名
+
+    button.addEventListener('click', function() {
+    window.location.href = 'http://127.0.0.1:3000/picture'; // 修正跳转页面的方式
+    });
+
+}
+    </script>
+    <!-- <a class="aaa"href="http://127.0.0.1:3000/">22222222222</a> -->
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+  <link rel="stylesheet" href="./bs/picture.css">
+  <script src="./bs/picture.js"></script>
+  <script src="./bs/p5_background.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+  <!-- <a class="aaa" href="http://127.0.0.1:3000/getimg">跳轉至拿圖頁面</a> -->
+  <img class="arrow" src="/loveless/FpImg/Arrow copy.svg"style="opacity:0.01;" >
+  <h2 class="getimg" ></h2><!--文字雲-->
+  <div class="box">
+    <div class="list">  
+      <% images.forEach(image => { %>
+        <div class="image-container" onclick="showModal('<%= image.url %>', '<%= image.linegraphUrl %>')">
+          <img src="<%= image.url %>" alt="Image" class="photo">
+          <div class="image-name" id="<%= image.name.split('/').pop().split('.')[0] %>"><%= image.name.split('/').pop().split('.')[0] %></div>
+        </div>
+      <% }); %>
+    </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close" style="opacity:0.01;">&times;</span>
+        <img id="modalImage" src="" alt="Clicked Image" class="modal-image"/>
+        <img id="modalLineGraph" src="" alt="Line Graph" style="display:none;"/>
+        <!-- <h1><textarea id="textInput" placeholder="Write down what you want to say."></textarea></h1>
+        <form action="" method="get"><button id="submitComment">Submit</button></form> -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript to handle modal popup
+    function showModal(imageUrl, lineGraphUrl) {
+      document.getElementById('modalImage').src = imageUrl;
+      const lineGraphImage = document.getElementById('modalLineGraph');
+      if (lineGraphUrl) {
+        lineGraphImage.src = lineGraphUrl;
+        lineGraphImage.style.display = 'block';
+        lineGraphImage.style.width = '600px';
+        lineGraphImage.style.position= 'absolute';   
+        lineGraphImage.style.top="49%";
+        lineGraphImage.style.left="42%";
+        lineGraphImage.style.transform = "scale(2.2)";
+      } else {
+        lineGraphImage.style.display = 'none';
+      }
+      document.getElementById('myModal').style.display = 'block';
+    }
+
+    // Close the modal
+    document.querySelector('.close').addEventListener('click', function() {
+      document.getElementById('myModal').style.display = 'none';
+    });
+    window.onload=function(){
+    var button = document.getElementsByClassName('arrow')[0]; // 确保这里是您第二个箭头的正确类名
+
+    button.addEventListener('click', function() {
+    window.location.href = 'http://127.0.0.1:3000/loveless/HTML/wordcloud.html'; // 修正跳转页面的方式
+    });
+
+}
+  </script>
+</body>
+</html>
